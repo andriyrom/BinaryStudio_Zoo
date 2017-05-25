@@ -199,5 +199,26 @@ namespace ZooEmulatorTest.Zoo {
 
             Assert.IsFalse(zoo.AreAllAnimalsDead);
         }
+
+        [TestMethod]
+        public void TestQueryAnimal() {
+            List<string> names1 = new List<string> { "Murzik", "Murzik2" };
+            List<string> names2 = new List<string> { "Barsik", "Barsik2" };
+            List<IAnimal> animals1 = names1.Select(name => CreateTestAnimal(name, 0)).ToList();
+            List<IAnimal> animals2 = names2.Select(name => CreateTestAnimal(name, 1)).ToList();
+            List<IAnimal> allAnimals = animals1.Concat(animals2).ToList();
+            IZoo zoo = new SimpleZoo();
+            allAnimals.ForEach(animal => zoo.AddAnimal(animal));
+
+            List<IAnimal> resultAll = zoo.QueryAnimals(ZooQuery.SearchAll());
+            Assert.AreEqual(animals1.Count + animals2.Count, resultAll.Count);
+
+            string type = SpeciesData.GetSpeciesNames()[0];
+            List<IAnimal> species1 = zoo.QueryAnimals(ZooQuery.Search(type, AnimalStates.Full));
+            CollectionAssert.AreEquivalent(names1, species1);
+
+            List<IAnimal> dead = zoo.QueryAnimals(ZooQuery.SearchByState(AnimalStates.Dead));
+            Assert.AreEqual(0, dead.Count);
+        }
     }
 }

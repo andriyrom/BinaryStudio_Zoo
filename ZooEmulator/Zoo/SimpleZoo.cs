@@ -11,7 +11,7 @@ namespace ZooEmulator.Zoo {
 
         public bool AreAllAnimalsDead { 
             get {
-                return GetAnimals().All(animal => animal.State == AnimalStates.Dead);
+                return AnimalsInZoo.Values.All(animal => animal.State == AnimalStates.Dead);
             } 
         }
 
@@ -48,7 +48,7 @@ namespace ZooEmulator.Zoo {
         }
 
         public List<IAnimal> QueryAnimals(IQuery<IAnimal> query) {
-            throw new NotImplementedException();
+            return AnimalsInZoo.Values.Where(animal => query.Match(animal)).ToList();
         }
     }
 }
