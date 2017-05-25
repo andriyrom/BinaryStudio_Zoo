@@ -215,7 +215,7 @@ namespace ZooEmulatorTest.Zoo {
 
             string type = SpeciesData.GetSpeciesNames()[0];
             List<IAnimal> species1 = zoo.QueryAnimals(ZooQuery.Search(type, AnimalStates.Full));
-            CollectionAssert.AreEquivalent(names1, species1);
+            CollectionAssert.AreEquivalent(animals1, species1);
 
             List<IAnimal> dead = zoo.QueryAnimals(ZooQuery.SearchByState(AnimalStates.Dead));
             Assert.AreEqual(0, dead.Count);
