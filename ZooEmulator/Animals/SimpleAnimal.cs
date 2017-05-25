@@ -24,7 +24,20 @@ namespace ZooEmulator.Animals {
         }
 
         public ExecutionStatus Eat() {
-            throw new NotImplementedException();
+            switch (State) {
+                case AnimalStates.Hungry:
+                case AnimalStates.Full: {
+                        State = AnimalStates.Full;
+                        return new ExecutionStatus(true, "");
+                    }
+                case AnimalStates.Sick: {
+                        return new ExecutionStatus(false, ErrorCaptions.SickAnimalEatError);
+                    }
+                case AnimalStates.Dead: {
+                        return new ExecutionStatus(false, ErrorCaptions.DeadAnimalEatError);
+                    }
+            }
+            return GetUnknownErrorStatus();
         }
 
         public ExecutionStatus Live() {
@@ -46,12 +59,21 @@ namespace ZooEmulator.Animals {
                         return new ExecutionStatus(false, ErrorCaptions.DeadAnimalLiveError);
                     }                
             }
-            string unknownStateErrorMessage = string.Format(ErrorCaptions.UnknownAnimalState, State.ToString());
-            return new ExecutionStatus(false, unknownStateErrorMessage);
+            return GetUnknownErrorStatus();
         }
 
         public ExecutionStatus Heal() {
-            throw new NotImplementedException();
+            if (State == AnimalStates.Dead) {
+                return new ExecutionStatus(false, ErrorCaptions.DeadAnimalHealError);
+            }
+            if (State == AnimalStates.Sick) { State = AnimalStates.Hungry; }
+            if (Health < MaxHealth) { Health++; }
+            return new ExecutionStatus(true, "");
+        }
+
+        private ExecutionStatus GetUnknownErrorStatus() {
+            string unknownStateErrorMessage = string.Format(ErrorCaptions.UnknownAnimalState, State.ToString());
+            return new ExecutionStatus(false, unknownStateErrorMessage);
         }
     }
 }
