@@ -9,7 +9,11 @@ namespace ZooEmulator.Zoo {
     public class SimpleZoo : IZoo {
         private Dictionary<string, IAnimal> AnimalsInZoo = new Dictionary<string, IAnimal>();
 
-        public bool AreAllAnimalsDead { get { return false; } }
+        public bool AreAllAnimalsDead { 
+            get {
+                return GetAnimals().All(animal => animal.State == AnimalStates.Dead);
+            } 
+        }
 
         public List<IAnimal> GetAnimals() {
             return AnimalsInZoo.Values.ToList();
@@ -25,7 +29,7 @@ namespace ZooEmulator.Zoo {
         }
 
         public ExecutionStatus RemoveAnimal(IAnimal animal) {
-            if (!IsAnimalExistsInZoo(animal)) {
+            if (!IsAnimalExistsInZoo(animal.Name)) {
                 return new ExecutionStatus(false, string.Format(ErrorCaptions.RemoveFreeAnimalError, animal.Name));
             }
             if (animal.State == AnimalStates.Dead) {
@@ -35,12 +39,12 @@ namespace ZooEmulator.Zoo {
             return new ExecutionStatus(false, string.Format(ErrorCaptions.RemoveAliveAnimalError, animal.Name));
         }
 
-        private bool IsAnimalExistsInZoo(IAnimal animal) {
-            return AnimalsInZoo.ContainsKey(animal.Name);
+        private bool IsAnimalExistsInZoo(string name) {
+            return AnimalsInZoo.ContainsKey(name);
         }
 
-        public Animals.IAnimal GetAnimalByName(string name) {
-            throw new NotImplementedException();
+        public IAnimal GetAnimalByName(string name) {
+            return IsAnimalExistsInZoo(name) ? AnimalsInZoo[name] : null;
         }
 
         public List<IAnimal> QueryAnimals(IQuery<IAnimal> query) {

@@ -138,5 +138,66 @@ namespace ZooEmulatorTest.Zoo {
             Assert.AreEqual(1, result.Count);
             Assert.IsTrue(result.Contains(animal1));
         }
+
+        [TestMethod]
+        public void TestGetAnimalByName() {
+            string name1 = "Barsik";
+            string name2 = "Myrzik";
+            IAnimal animal1 = CreateTestAnimal(name1, 0);
+            IAnimal animal2 = CreateTestAnimal(name2, 1);
+            IZoo zoo = new SimpleZoo();
+
+            zoo.AddAnimal(animal1);
+            zoo.AddAnimal(animal2);
+            IAnimal result = zoo.GetAnimalByName(name1);
+
+            Assert.AreEqual(animal1, result);
+        }
+
+        [TestMethod]
+        public void TestNonExistingAnimalByName() {
+            string name1 = "Barsik";
+            string name2 = "Myrzik";
+            IAnimal animal1 = CreateTestAnimal(name1, 0);
+            IAnimal animal2 = CreateTestAnimal(name2, 1);
+            IZoo zoo = new SimpleZoo();
+
+            zoo.AddAnimal(animal1);
+            zoo.AddAnimal(animal2);
+            IAnimal result = zoo.GetAnimalByName("DummyName");
+
+            Assert.IsNull(result);
+        }
+
+        [TestMethod]
+        public void TestAreAllAnimalsDeadWhenDead() {
+            string name1 = "Barsik";
+            string name2 = "Myrzik";
+            IAnimal animal1 = CreateTestAnimal(name1, 0);
+            IAnimal animal2 = CreateTestAnimal(name2, 1);
+            IZoo zoo = new SimpleZoo();
+
+            zoo.AddAnimal(animal1);
+            zoo.AddAnimal(animal2);
+            KillAnimal(animal1);
+            KillAnimal(animal2);
+
+            Assert.IsTrue(zoo.AreAllAnimalsDead);
+        }
+
+        [TestMethod]
+        public void TestAreAllAnimalsDeadWhenSomeAlive() {
+            string name1 = "Barsik";
+            string name2 = "Myrzik";
+            IAnimal animal1 = CreateTestAnimal(name1, 0);
+            IAnimal animal2 = CreateTestAnimal(name2, 1);
+            IZoo zoo = new SimpleZoo();
+
+            zoo.AddAnimal(animal1);
+            zoo.AddAnimal(animal2);
+            KillAnimal(animal1);
+
+            Assert.IsFalse(zoo.AreAllAnimalsDead);
+        }
     }
 }
