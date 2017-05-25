@@ -66,7 +66,14 @@ namespace ZooEmulator {
         }
 
         public ExecutionStatus AddAnimal(string name, int typeNumber) {
-            return ExecuteActionSafe(name, animal => Zoo.AddAnimal(animal));            
+            lock (LockObject) {
+                string error;
+                IAnimal animal = Ferm.CreateAnimal(name, typeNumber, out error);
+                if (!string.IsNullOrEmpty(error)) {
+                    return new ExecutionStatus(false, error);
+                }
+                return Zoo.AddAnimal(animal);
+            }           
         }
 
         public ExecutionStatus RemoveAnimal(string name) {
@@ -81,18 +88,20 @@ namespace ZooEmulator {
             return ExecuteActionSafe(name, animal => animal.Eat());            
         }
 
-        public ExecutionStatus MakeRandomAnimalLive() {
+        public ExecutionStatus MakeRandomAnimalLive(out IAnimal chousenAnimal) {
             lock(LockObject) {
                 var random = new Random();
                 IEnumerable<IAnimal> aliveAnimals = Zoo.GetAnimals().Where(animal => animal.State != AnimalStates.Dead);
                 if (!aliveAnimals.Any()) {
+                    chousenAnimal = null;
                     return new ExecutionStatus(false, ErrorCaptions.AllAnimalsDeadMessage);
                 }
                 int animalNumer = random.Next() % aliveAnimals.Count();
-                aliveAnimals.ElementAt(animalNumer).Live();
-                return aliveAnimals.Any() 
-                    ? new ExecutionStatus(false, ErrorCaptions.AllAnimalsDeadMessage)
-                    : new ExecutionStatus(true, "");                
+                chousenAnimal = aliveAnimals.ElementAt(animalNumer);
+                chousenAnimal.Live();
+                return aliveAnimals.Any()
+                    ? new ExecutionStatus(true, "")
+                    : new ExecutionStatus(false, ErrorCaptions.AllAnimalsDeadMessage);                
             }
         }
     }

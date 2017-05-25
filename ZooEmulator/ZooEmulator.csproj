@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnimalLifesEmulator.cs" />
     <Compile Include="Animals\AnimalsFactory.cs" />
     <Compile Include="ErrorCaptions.cs" />
     <Compile Include="Animals\SpeciesInfo.cs" />
@@ -51,6 +52,7 @@
     <Compile Include="Animals\SimpleAnimal.cs" />
     <Compile Include="IZooController.cs" />
     <Compile Include="ZooController.cs" />
+	<Compile Include="UserInterface.cs" />
     <Compile Include="Zoo\IQuery.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
