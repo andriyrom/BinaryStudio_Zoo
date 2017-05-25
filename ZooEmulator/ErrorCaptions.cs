@@ -11,5 +11,6 @@ namespace ZooEmulator.Animals {
         public const string SickAnimalEatError = "Sick animal can not eat.";
         public const string DeadAnimalEatError = "Animal is dead, it can not eat.";
         public const string DeadAnimalHealError = "Animal is dead, it can not eat.";
+        public const string AddAnimalWithExistingNameError = "Animal with name '{0}' already exists. You can not add new animal with the name '{0}'.";
     }
 }
