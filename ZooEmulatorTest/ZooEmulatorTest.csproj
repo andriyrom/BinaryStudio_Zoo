@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Animals\SimpleAnimalTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Zoo\ZooQueryTest.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
