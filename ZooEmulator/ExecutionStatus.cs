@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ZooEmulator.Animals {
+namespace ZooEmulator {
     public class ExecutionStatus {
         public bool Success { get; private set; }
 

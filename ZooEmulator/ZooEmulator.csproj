@@ -43,7 +43,7 @@
   <ItemGroup>
     <Compile Include="ErrorCaptions.cs" />
     <Compile Include="Animals\SpeciesInfo.cs" />
-    <Compile Include="Animals\ExecutionStatus.cs" />
+    <Compile Include="ExecutionStatus.cs" />
     <Compile Include="Animals\AnimalStates.cs" />
     <Compile Include="Animals\SpeciesData.cs" />
     <Compile Include="Animals\IAnimal.cs" />

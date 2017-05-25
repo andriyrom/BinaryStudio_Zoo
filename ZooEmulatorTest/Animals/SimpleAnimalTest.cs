@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
+using ZooEmulator;
 using ZooEmulator.Animals;
 
 namespace ZooEmulatorTest.Animals {
