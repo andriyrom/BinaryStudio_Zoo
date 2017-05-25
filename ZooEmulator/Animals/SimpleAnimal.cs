@@ -28,7 +28,26 @@ namespace ZooEmulator.Animals {
         }
 
         public ExecutionStatus Live() {
-            throw new NotImplementedException();
+            switch (State) {
+                case AnimalStates.Full: {
+                        State = AnimalStates.Hungry;
+                        return new ExecutionStatus(true, "");
+                    }
+                case AnimalStates.Hungry: {
+                        State = AnimalStates.Sick;
+                        return new ExecutionStatus(true, "");
+                    }
+                case AnimalStates.Sick: {
+                        Health--;
+                        State = Health > 0 ? AnimalStates.Sick : AnimalStates.Dead;
+                        return new ExecutionStatus(true, "");
+                    }
+                case AnimalStates.Dead: {                        
+                        return new ExecutionStatus(false, ErrorCaptions.DeadAnimalLiveError);
+                    }                
+            }
+            string unknownStateErrorMessage = string.Format(ErrorCaptions.UnknownAnimalState, State.ToString());
+            return new ExecutionStatus(false, unknownStateErrorMessage);
         }
 
         public ExecutionStatus Heal() {

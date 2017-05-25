@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ErrorCaptions.cs" />
     <Compile Include="Animals\SpeciesInfo.cs" />
     <Compile Include="Animals\ExecutionStatus.cs" />
     <Compile Include="Animals\AnimalStates.cs" />
