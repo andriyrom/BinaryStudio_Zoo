@@ -14,5 +14,7 @@ namespace ZooEmulator.Animals {
         public const string AddAnimalWithExistingNameError = "Animal with name '{0}' already exists. You can not add new animal with the name '{0}'.";
         public const string RemoveAliveAnimalError = "Animal with name '{0}' is still alive. You can not remove this animal.";
         public const string RemoveFreeAnimalError = "Animal with name '{0}' is not live in this zoo. You can not remove this animal.";
+        public const string WrongAnimalCreationParameters = "Your animal creation parameters is wrong. Name should be not empty, species number should be appropriate.";
+        public const string AllAnimalsDeadMessage = "All animals are dead. Zoo can not work.";
     }
 }
