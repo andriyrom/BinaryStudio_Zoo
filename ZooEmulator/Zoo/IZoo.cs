@@ -17,6 +17,6 @@ namespace ZooEmulator.Zoo {
 
         List<IAnimal> QueryAnimals(IQuery<IAnimal> query);
 
-        bool AreAllEnimalsDead { get; }
+        bool AreAllAnimalsDead { get; }
     }
 }

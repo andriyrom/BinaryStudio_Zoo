@@ -9,7 +9,7 @@ namespace ZooEmulator.Zoo {
     public class SimpleZoo : IZoo {
         private Dictionary<string, IAnimal> AnimalsInZoo = new Dictionary<string, IAnimal>();
 
-        public bool AreAllEnimalsDead { get { return false; } }
+        public bool AreAllAnimalsDead { get { return false; } }
 
         public List<IAnimal> GetAnimals() {
             return AnimalsInZoo.Values.ToList();
