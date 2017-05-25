@@ -24,6 +24,6 @@ namespace ZooEmulator {
 
         ExecutionStatus FeedAnimal(string name);
 
-        ExecutionStatus MakeRandomAnimalLive();
+        ExecutionStatus MakeRandomAnimalLive(out IAnimal animal);
     }
 }
