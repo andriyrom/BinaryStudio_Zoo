@@ -13,7 +13,7 @@ namespace ZooEmulator.Animals {
         public IAnimal CreateAnimal(string name, int speciesNumber, out string error) {
             List<SpeciesInfo> allSpecies = SpeciesData.GetSpeciesInfo();
             error = Validate(name, speciesNumber, allSpecies.Count);
-            if (string.IsNullOrEmpty(error)) {
+            if (!string.IsNullOrEmpty(error)) {
                 return null;
             }            
             SpeciesInfo species = allSpecies[speciesNumber];

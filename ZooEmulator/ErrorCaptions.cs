@@ -16,5 +16,6 @@ namespace ZooEmulator.Animals {
         public const string RemoveFreeAnimalError = "Animal with name '{0}' is not live in this zoo. You can not remove this animal.";
         public const string WrongAnimalCreationParameters = "Your animal creation parameters is wrong. Name should be not empty, species number should be appropriate.";
         public const string AllAnimalsDeadMessage = "All animals are dead. Zoo can not work.";
+        public const string AnimalMessageTemplate = "{0} {1} is {2} and have {3} health points.";
     }
 }
