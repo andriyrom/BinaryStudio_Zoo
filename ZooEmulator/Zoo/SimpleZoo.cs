@@ -25,7 +25,18 @@ namespace ZooEmulator.Zoo {
         }
 
         public ExecutionStatus RemoveAnimal(IAnimal animal) {
-            throw new NotImplementedException();
+            if (!IsAnimalExistsInZoo(animal)) {
+                return new ExecutionStatus(false, string.Format(ErrorCaptions.RemoveFreeAnimalError, animal.Name));
+            }
+            if (animal.State == AnimalStates.Dead) {
+                AnimalsInZoo.Remove(animal.Name);
+                return new ExecutionStatus(true, "");
+            }
+            return new ExecutionStatus(false, string.Format(ErrorCaptions.RemoveAliveAnimalError, animal.Name));
+        }
+
+        private bool IsAnimalExistsInZoo(IAnimal animal) {
+            return AnimalsInZoo.ContainsKey(animal.Name);
         }
 
         public Animals.IAnimal GetAnimalByName(string name) {

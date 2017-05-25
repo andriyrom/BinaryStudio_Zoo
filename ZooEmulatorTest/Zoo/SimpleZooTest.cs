@@ -65,5 +65,78 @@ namespace ZooEmulatorTest.Zoo {
             Assert.IsTrue(result.Contains(animal1));
             Assert.IsTrue(result.Contains(animal2));
         }
+
+        [TestMethod]
+        public void TestRemoveAliveAnimal() {
+            string name1 = "Barsik";
+            string name2 = "Myrzik";
+            IAnimal animal1 = CreateTestAnimal(name1, 0);
+            IAnimal animal2 = CreateTestAnimal(name2, 1);
+            IZoo zoo = new SimpleZoo();
+
+            ExecutionStatus status = zoo.AddAnimal(animal1);
+            Assert.IsTrue(status.Success);
+            status = zoo.AddAnimal(animal2);
+            Assert.IsTrue(status.Success);
+
+            status = zoo.RemoveAnimal(animal1);
+            Assert.IsFalse(status.Success);
+            string expectedErrorText = string.Format(ErrorCaptions.RemoveAliveAnimalError, animal1.Name);
+            Assert.AreEqual(expectedErrorText, status.ErrorMessage);
+
+            List<IAnimal> result = zoo.GetAnimals();
+            Assert.AreEqual(2, result.Count);
+            Assert.IsTrue(result.Contains(animal1));
+            Assert.IsTrue(result.Contains(animal2));
+        }
+
+        [TestMethod]
+        public void TestRemoveDeadAnimal() {
+            string name1 = "Barsik";
+            string name2 = "Myrzik";
+            IAnimal animal1 = CreateTestAnimal(name1, 0);
+            IAnimal animal2 = CreateTestAnimal(name2, 1);
+            IZoo zoo = new SimpleZoo();
+
+            ExecutionStatus status = zoo.AddAnimal(animal1);
+            Assert.IsTrue(status.Success);
+            status = zoo.AddAnimal(animal2);
+            Assert.IsTrue(status.Success);
+            KillAnimal(animal2);
+
+            status = zoo.RemoveAnimal(animal2);
+            Assert.IsTrue(status.Success);
+            
+            List<IAnimal> result = zoo.GetAnimals();
+            Assert.AreEqual(1, result.Count);
+            Assert.IsTrue(result.Contains(animal1));
+        }
+
+        private void KillAnimal(IAnimal animal) {
+            while (animal.State != AnimalStates.Dead) {
+                animal.Live();
+            }
+        }
+
+        [TestMethod]
+        public void TestRemoveFreeAnimal() {
+            string name1 = "Barsik";
+            string name2 = "Myrzik";
+            IAnimal animal1 = CreateTestAnimal(name1, 0);
+            IAnimal animal2 = CreateTestAnimal(name2, 1);
+            IZoo zoo = new SimpleZoo();
+
+            ExecutionStatus status = zoo.AddAnimal(animal1);
+            Assert.IsTrue(status.Success);            
+
+            status = zoo.RemoveAnimal(animal2);
+            Assert.IsFalse(status.Success);
+            string expectedErrorText = string.Format(ErrorCaptions.RemoveFreeAnimalError, animal2.Name);
+            Assert.AreEqual(expectedErrorText, status.ErrorMessage);
+
+            List<IAnimal> result = zoo.GetAnimals();
+            Assert.AreEqual(1, result.Count);
+            Assert.IsTrue(result.Contains(animal1));
+        }
     }
 }
