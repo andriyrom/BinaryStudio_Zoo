@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="AnimalLifesEmulator.cs" />
     <Compile Include="Animals\AnimalsFactory.cs" />
+    <Compile Include="CommandInterpretator.cs" />
     <Compile Include="ErrorCaptions.cs" />
     <Compile Include="Animals\SpeciesInfo.cs" />
     <Compile Include="ExecutionStatus.cs" />
@@ -52,7 +53,7 @@
     <Compile Include="Animals\SimpleAnimal.cs" />
     <Compile Include="IZooController.cs" />
     <Compile Include="ZooController.cs" />
-	<Compile Include="UserInterface.cs" />
+    <Compile Include="UserInterface.cs" />
     <Compile Include="Zoo\IQuery.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
