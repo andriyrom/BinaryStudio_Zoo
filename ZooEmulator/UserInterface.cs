@@ -58,15 +58,15 @@ namespace ZooEmulator {
                 Thread testInput = new Thread(InputTest);
                 lock (ReaderLockObject) {
                     testInput.Start();
-                    if (testInput.Join(2500)) {
+                    if (testInput.Join(3000)) {
                         if (InputKey == 'y' || InputKey == 'Y') {
                             ReadInput();
                         } else {
-                            Console.WriteLine();
+                            ClearInput();
                         }
                     } else {
                         testInput.Abort();
-                        Console.WriteLine();
+                        ClearInput();
                     }
                     InputKey = '\0';
                 }
@@ -83,6 +83,14 @@ namespace ZooEmulator {
             Thread inputEventRaise = new Thread(RaiseInputEvent);
             inputEventRaise.IsBackground = true;
             inputEventRaise.Start(input);
+        }
+
+        private void ClearInput() {
+            int rowToClearIndex = Console.CursorTop;
+            string cleanText = "                                                              ";
+            Console.SetCursorPosition(0, rowToClearIndex);
+            Console.Write(cleanText);
+            Console.SetCursorPosition(0, rowToClearIndex);
         }
 
         private void RaiseInputEvent(object parameter) {
