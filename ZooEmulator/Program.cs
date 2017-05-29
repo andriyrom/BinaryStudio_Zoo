@@ -13,7 +13,7 @@ namespace ZooEmulator {
             var zoo = new ZooController();
             CommandPromprt = new UserInterface();
             LifeEmulator = new AnimalLifesEmulator(zoo, CommandPromprt);
-            Interpretator = new CommandInterpretator(zoo, CommandPromprt);
+            Interpretator = new CommandInterpretator(zoo, zoo.GetStatisticsCalculator(), CommandPromprt);
             Interpretator.Start += OnStart;
             Interpretator.Exit += OnExit;
             CommandPromprt.Start();            

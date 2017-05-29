@@ -8,10 +8,12 @@ using ZooEmulator.Animals;
 namespace ZooEmulator {
     class CommandInterpretator : IDisposable {        
         private IZooController Zoo;
+        private IZooStatistics Statistics;
         private UserInterface CommandPromprt;
         private UserCommands CommandImplementations;
-        public CommandInterpretator(IZooController zoo, UserInterface commandPromprt) {
+        public CommandInterpretator(IZooController zoo, IZooStatistics statistics, UserInterface commandPromprt) {
             Zoo = zoo;
+            Statistics = statistics;
             CommandPromprt = commandPromprt;
             CommandPromprt.DataTyped += OnCommandTyped;
             CommandImplementations = new UserCommands(this);
@@ -55,6 +57,7 @@ namespace ZooEmulator {
                    { "Species", ShowSpecies },
                    { "Feed", FeedAnimal },
                    { "Heal", HealAnimal },
+                   { "Demo", DemoStatistics },
                };
             }
 
@@ -128,6 +131,10 @@ namespace ZooEmulator {
                 IAnimal animal = Interpretator.Zoo.GetAnimal(name);
                 string state = Enum.GetName(typeof(AnimalStates), animal.State);
                 return string.Format(ErrorCaptions.AnimalMessageTemplate, animal.Type, animal.Name, state, animal.Health);
+            }
+
+            private void DemoStatistics(List<string> parameters) {
+                Interpretator.CommandPromprt.WriteData("Demo statistics dummy");
             }
         }
 
