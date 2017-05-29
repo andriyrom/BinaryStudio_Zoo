@@ -52,6 +52,8 @@
     <Compile Include="Animals\IAnimal.cs" />
     <Compile Include="Animals\SimpleAnimal.cs" />
     <Compile Include="IZooController.cs" />
+    <Compile Include="IZooStatistics.cs" />
+    <Compile Include="LINQZooStatisticsCalculator.cs" />
     <Compile Include="ZooController.cs" />
     <Compile Include="UserInterface.cs" />
     <Compile Include="Zoo\IQuery.cs" />

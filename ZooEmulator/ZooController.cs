@@ -104,5 +104,9 @@ namespace ZooEmulator {
                     : new ExecutionStatus(false, ErrorCaptions.AllAnimalsDeadMessage);                
             }
         }
+
+        public IZooStatistics GetStatisticsCalculator() {
+            return new LINQZooStatisticsCalculator(Zoo, LockObject);
+        }
     }
 }
